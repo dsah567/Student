@@ -1,11 +1,10 @@
 import express from "express";
-import bodyParser from "body-parser";
 import cors from "cors";
 import studentRoutes from "./routes/student.route.js";
 
 const app = express();
 
-const allowedOrigins = "http://localhost:5173,https://.vercel.app".split(',');
+const allowedOrigins = "http://localhost:5173,https://student-three-livid.vercel.app/".split(',');
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
