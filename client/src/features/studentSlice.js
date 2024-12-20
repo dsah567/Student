@@ -5,7 +5,13 @@ export const fetchStudents = createAsyncThunk(
   "studentData/fetchStudents",
   async (url, { rejectWithValue }) => {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+                                        method: 'GET',
+                                        credentials: 'include',
+                                        headers: {
+                                        'Content-Type': 'application/json',
+                                        },
+                                    });
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
