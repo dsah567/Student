@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import AddStudentForm from "./ADDStudentForm";
+import AddStudentForm from "./AddStudentForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStudents,deleteStudent } from "../features/studentSlice";
 
