@@ -1,13 +1,28 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStudents } from "../features/studentSlice";
 
-export default function Students() {
-    const {data} = useSelector((state)=> state.studentData);
-    console.log(data);
+const Students = () => {
+  const dispatch = useDispatch();
+  const { data, status, error } = useSelector((state) => state.studentData);
+
+  useEffect(() => {
+    dispatch(fetchStudents("http://localhost:8000/students"));
+  }, [dispatch]);
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (status === "failed") {
+    return <p>Error: {error}</p>;
+  }
+
+
   return (
     <div className="overflow-auto">
       
-      {/* Main Content */}
+      
       <div className="w-full md:w-4/5 p-4">
         <header className="flex justify-between items-center mb-4">
           
@@ -59,9 +74,10 @@ export default function Students() {
             ))}
           </tbody>
         </table>
-        {/* Add New Student Button */}
         
       </div>
     </div>
   )
 }
+
+export default Students;
