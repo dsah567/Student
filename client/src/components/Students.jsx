@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import AddStudentForm from "./ADDStudentForm";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStudents } from "../features/studentSlice";
+import { fetchStudents,deleteStudent } from "../features/studentSlice";
 
 const Students = () => {
   const dispatch = useDispatch();
@@ -10,13 +11,18 @@ const Students = () => {
     dispatch(fetchStudents("https://student-1ju8.onrender.com/students"));
   }, [dispatch]);
 
+  const handleDelete = (id) => {
+    dispatch(deleteStudent(id));
+  };
+
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <p>Loading... Server has spin down because of using free server it take 1 minute to spin up. </p>;
   }
 
   if (status === "failed") {
     return <p>Error: {error}</p>;
   }
+
 
 
   return (
@@ -35,11 +41,7 @@ const Students = () => {
             <option>CBSE 9 Math</option>
           </select>
 
-          <div className="flex justify-end mt-4">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-            + Add New Student
-          </button>
-        </div>
+          
         </header>
         {/* Table */}
         <table className="table-auto w-full border-collapse border border-gray-200">
@@ -51,6 +53,7 @@ const Students = () => {
               <th className="border px-4 py-2">Date Joined</th>
               <th className="border px-4 py-2">Last Login</th>
               <th className="border px-4 py-2">Status</th>
+              <th className="border px-4 py-2">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -70,12 +73,16 @@ const Students = () => {
                 >
                   ● 
                 </td>
+                <td className="border px-4 py-2 bg-blue-500"><button onClick={() => handleDelete(dt.id)}>Delet</button></td>
               </tr>
             ))}
           </tbody>
         </table>
         
       </div>
+      <div className="flex justify-end mt-4">
+          <AddStudentForm/>
+        </div>
     </div>
   )
 }

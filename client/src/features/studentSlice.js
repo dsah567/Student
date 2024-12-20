@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import { nanoid } from "nanoid";
 
 export const fetchStudents = createAsyncThunk(
   "studentData/fetchStudents",
@@ -33,6 +33,11 @@ const studentSlice = createSlice({
     addStudent: (state, action) => {
       state.data.push(action.payload);
     },
+    addStud: (state, action) => {
+        // Add a new student with an automatically generated ID
+        const newStudent = { id: nanoid(), ...action.payload };
+        state.data.push(newStudent);
+      },
     deleteStudent: (state, action) => {
       state.data = state.data.filter(student => student.id !== action.payload);
     },
@@ -53,5 +58,5 @@ const studentSlice = createSlice({
   },
 });
 
-export const { addStudent, deleteStudent } = studentSlice.actions;
+export const { addStudent,addStud, deleteStudent } = studentSlice.actions;
 export default studentSlice.reducer;
