@@ -7,7 +7,7 @@ const Students = () => {
   const { data, status, error } = useSelector((state) => state.studentData);
 
   useEffect(() => {
-    dispatch(fetchStudents("http://localhost:8000/students"));
+    dispatch(fetchStudents("https://student-1ju8.onrender.com/students"));
   }, [dispatch]);
 
   if (status === "loading") {
