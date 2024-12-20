@@ -4,17 +4,22 @@ import studentRoutes from "./routes/student.route.js";
 
 const app = express();
 
-const allowedOrigins = "http://localhost:5173,https://student-three-livid.vercel.app/".split(',');
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://student-three-livid.vercel.app",
+];
+
 app.use(cors({
   origin: function (origin, callback) {
+    
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true, // Allow credentials (cookies, authorization headers)
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  credentials: true, 
 }));
 
 
